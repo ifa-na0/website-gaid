@@ -22,7 +22,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="inicio"
-      className="relative flex min-h-[100dvh] items-center bg-white pt-[16px] md:pt-0"
+      className="relative flex min-h-[100dvh] items-center bg-white pt-[32px] md:pt-0"
     >
       <Container>
         <div
