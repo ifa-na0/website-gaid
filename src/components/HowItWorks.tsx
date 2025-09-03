@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const steps = [
   {
@@ -41,9 +42,9 @@ function hexToRgba(hex: string, alpha: number) {
           .join("")
       : h;
   const n = parseInt(v, 16);
-  const r = (n >> 16) & 255,
-    g = (n >> 8) & 255,
-    b = n & 255;
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
@@ -63,12 +64,13 @@ function Blob({ color }: { color: string }) {
   );
 }
 
-/* Variants desktop (sin cambios) */
-const sectionVariants = {
+/* Variants desktop — ahora tipados */
+const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
-const listVariants = {
+
+const listVariants: Variants = {
   hidden: { opacity: 0, y: 8 },
   show: {
     opacity: 1,
@@ -76,7 +78,8 @@ const listVariants = {
     transition: { staggerChildren: 0.14, delayChildren: 0.08 },
   },
 };
-const cardVariants = {
+
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 14, scale: 0.985 },
   show: {
     opacity: 1,
@@ -86,8 +89,8 @@ const cardVariants = {
   },
 };
 
-/* Variant MOBILE sin scale (para que no “crezca”) */
-const mobileCardVariants = {
+/* Variant MOBILE sin scale (para que no “crezca”) — tipado */
+const mobileCardVariants: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
 };
@@ -99,6 +102,7 @@ function DesktopCard({ step }: { step: (typeof steps)[number] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
   const controls = useAnimation();
+
   useEffect(() => {
     controls.start(inView ? "show" : "hidden");
   }, [inView, controls]);
@@ -127,13 +131,16 @@ function DesktopCard({ step }: { step: (typeof steps)[number] }) {
           </span>
           <Blob color={step.color} />
         </div>
+
         <h3 className="mt-[32px] font-satoshi text-[28px] font-medium leading-[1.2] text-neutral-900">
           <span className="font-bold">{step.titleBold}</span>
           {step.titleRest}
         </h3>
+
         <p className="mt-[22px] font-satoshi text-[21px] font-normal leading-[1.35] text-[#878787]">
           {step.subtitle}
         </p>
+
         {step.showArrow && (
           <div className="absolute right-6 bottom-8">
             <ArrowRight className="h-7 w-7 text-neutral-800" />
@@ -168,10 +175,10 @@ function MobileSlide({
           style={{
             width: 348,
             height: 417,
-            transform: "scale(0.92)", // escala fija para caber en mobile
+            transform: "scale(0.92)",
             transformOrigin: "center top",
             boxShadow: "6px 8px 0 0 #1E1E1E",
-            backgroundColor: baseBg, // SIN hover de color en mobile
+            backgroundColor: baseBg,
           }}
         >
           <div className="relative mt-[26px] flex items-center justify-between">
@@ -180,10 +187,12 @@ function MobileSlide({
             </span>
             <Blob color={step.color} />
           </div>
+
           <h3 className="mt-[32px] font-satoshi text-[28px] font-medium leading-[1.2] text-neutral-900">
             <span className="font-bold">{step.titleBold}</span>
             {step.titleRest}
           </h3>
+
           <p className="mt-[22px] font-satoshi text-[21px] font-normal leading-[1.35] text-[#878787]">
             {step.subtitle}
           </p>
@@ -222,6 +231,7 @@ export default function HowItWorksSection({
   const sectionRef = useRef<HTMLElement>(null);
   const sectionInView = useInView(sectionRef, { amount: 0.3 });
   const sectionControls = useAnimation();
+
   useEffect(() => {
     sectionControls.start(sectionInView ? "show" : "hidden");
   }, [sectionInView, sectionControls]);
