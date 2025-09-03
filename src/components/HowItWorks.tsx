@@ -42,9 +42,9 @@ function hexToRgba(hex: string, alpha: number) {
           .join("")
       : h;
   const n = parseInt(v, 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
+  const r = (n >> 16) & 255,
+    g = (n >> 8) & 255,
+    b = n & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
@@ -64,12 +64,10 @@ function Blob({ color }: { color: string }) {
   );
 }
 
-/* Variants desktop — ahora tipados */
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
-
 const listVariants: Variants = {
   hidden: { opacity: 0, y: 8 },
   show: {
@@ -78,7 +76,6 @@ const listVariants: Variants = {
     transition: { staggerChildren: 0.14, delayChildren: 0.08 },
   },
 };
-
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 14, scale: 0.985 },
   show: {
@@ -88,8 +85,6 @@ const cardVariants: Variants = {
     transition: { duration: 0.45, ease: "easeOut" },
   },
 };
-
-/* Variant MOBILE sin scale (para que no “crezca”) — tipado */
 const mobileCardVariants: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
@@ -98,11 +93,9 @@ const mobileCardVariants: Variants = {
 function DesktopCard({ step }: { step: (typeof steps)[number] }) {
   const baseBg = hexToRgba(step.color, 0);
   const hoverBg = hexToRgba(step.color, 0.14);
-
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
   const controls = useAnimation();
-
   useEffect(() => {
     controls.start(inView ? "show" : "hidden");
   }, [inView, controls]);
@@ -131,16 +124,13 @@ function DesktopCard({ step }: { step: (typeof steps)[number] }) {
           </span>
           <Blob color={step.color} />
         </div>
-
         <h3 className="mt-[32px] font-satoshi text-[28px] font-medium leading-[1.2] text-neutral-900">
           <span className="font-bold">{step.titleBold}</span>
           {step.titleRest}
         </h3>
-
         <p className="mt-[22px] font-satoshi text-[21px] font-normal leading-[1.35] text-[#878787]">
           {step.subtitle}
         </p>
-
         {step.showArrow && (
           <div className="absolute right-6 bottom-8">
             <ArrowRight className="h-7 w-7 text-neutral-800" />
@@ -163,7 +153,6 @@ function MobileSlide({
   onNext: () => void;
 }) {
   const baseBg = hexToRgba(step.color, 0);
-
   return (
     <motion.div
       variants={mobileCardVariants}
@@ -187,16 +176,13 @@ function MobileSlide({
             </span>
             <Blob color={step.color} />
           </div>
-
           <h3 className="mt-[32px] font-satoshi text-[28px] font-medium leading-[1.2] text-neutral-900">
             <span className="font-bold">{step.titleBold}</span>
             {step.titleRest}
           </h3>
-
           <p className="mt-[22px] font-satoshi text-[21px] font-normal leading-[1.35] text-[#878787]">
             {step.subtitle}
           </p>
-
           <div className="absolute bottom-6 right-6 flex items-center gap-5">
             {index > 0 && (
               <ArrowLeft
@@ -231,7 +217,6 @@ export default function HowItWorksSection({
   const sectionRef = useRef<HTMLElement>(null);
   const sectionInView = useInView(sectionRef, { amount: 0.3 });
   const sectionControls = useAnimation();
-
   useEffect(() => {
     sectionControls.start(sectionInView ? "show" : "hidden");
   }, [sectionInView, sectionControls]);
@@ -248,23 +233,24 @@ export default function HowItWorksSection({
     <motion.section
       id={id}
       ref={sectionRef}
-      className={`relative w-full bg-white ${className}`}
+      className={`relative w-full bg-white -mt-10 md:-mt-6 lg:-mt-8 ${className}`}
       variants={sectionVariants}
       initial="hidden"
       animate={sectionControls}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 md:pt-24 pb-0 md:pb-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-2 md:pt-10 pb-0 md:pb-12">
+        <div className="mx-auto -mt-6 mb-24 h-px w-11/12 max-w-[640px] rounded-full bg-neutral-200/80 md:hidden" />
+
         <motion.div variants={sectionVariants}>
           <h2 className="text-center font-satoshi text-[30px] font-bold text-neutral-900">
             ¿Cómo funciona?
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center font-satoshi text-[18px] text-neutral-500">
-            Descubrí en tres pasos cómo GAID
-            <br className="md:hidden" /> mejora tu experiencia.
+            Descubrí en tres pasos cómo
+            <br className="md:hidden" /> mejoramos tu experiencia.
           </p>
         </motion.div>
 
-        {/* Desktop */}
         <motion.div
           variants={listVariants}
           initial="hidden"
@@ -276,12 +262,11 @@ export default function HowItWorksSection({
           ))}
         </motion.div>
 
-        {/* Mobile */}
         <motion.div
           variants={listVariants}
           initial="hidden"
           animate="show"
-          className="mt-8 md:hidden -mx-4"
+          className="mt-6 md:hidden -mx-4"
         >
           <div
             ref={scrollerRef}

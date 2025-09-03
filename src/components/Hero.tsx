@@ -22,13 +22,13 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="inicio"
-      className="relative flex min-h-[100dvh] items-center bg-white pt-[64px] md:pt-0"
+      className="relative flex min-h-[100dvh] items-center bg-white pt-[0px] md:pt-0"
     >
       <Container>
         <div
           className="
             mx-auto grid items-center justify-center overflow-visible
-            mt-0 md:-mt-20            /* 👉 sacamos el -mt en mobile */
+            mt-0 md:-mt-20
             gap-4 md:gap-20
             md:grid-cols-[380px_minmax(0,580px)] max-w-[1200px]
           "
@@ -42,7 +42,7 @@ export default function Hero() {
                 height={1000}
                 priority
                 className="
-                  select-none drop-shadow-2xl h-auto
+                  select-none md:drop-shadow-2xl h-auto
                   w-[220px] sm:w-[260px]
                   md:w-[330px] lg:w-[400px] xl:w-[330px]
                 "
@@ -97,8 +97,8 @@ export default function Hero() {
               <h1
                 className="
                   text-[#1E1E1E] font-bold
-                  text-[30px] leading-[36px]   /* 👉 mobile */
-                  md:text-[50px] md:leading-[56px]  /* 👉 desktop */
+                  text-[30px] leading-[36px]
+                  md:text-[50px] md:leading-[56px]
                   anim-fade-block
                 "
                 style={{ animationDelay: "80ms" }}
@@ -169,6 +169,8 @@ export default function Hero() {
           </div>
         </div>
       </Container>
+
+      {/* (Quitamos la línea del Hero) */}
 
       <a
         href="#como-funciona"
