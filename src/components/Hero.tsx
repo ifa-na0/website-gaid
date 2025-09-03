@@ -22,14 +22,16 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="inicio"
-      className="relative flex min-h-svh items-center bg-white pt-0 md:pt-0"
+      className="relative flex min-h-[100dvh] items-center bg-white pt-[64px] md:pt-0"
     >
       <Container>
         <div
-          className="mx-auto grid items-center justify-center overflow-visible
-                 -mt-12 md:-mt-20
-                 gap-4 md:gap-20
-                md:grid-cols-[380px_minmax(0,580px)] max-w-[1200px]"
+          className="
+            mx-auto grid items-center justify-center overflow-visible
+            mt-0 md:-mt-20            /* 👉 sacamos el -mt en mobile */
+            gap-4 md:gap-20
+            md:grid-cols-[380px_minmax(0,580px)] max-w-[1200px]
+          "
         >
           <div className="order-2 md:order-1 self-start md:self-center flex justify-center overflow-visible -mt-2 md:mt-0">
             <div className="relative overflow-visible scale-[0.9] sm:scale-95 md:scale-100">
@@ -171,9 +173,9 @@ export default function Hero() {
       <a
         href="#como-funciona"
         aria-label="Bajar a siguiente sección"
-        className="absolute inset-x-0 bottom-20 md:bottom-24 flex justify-center animate-bounce"
+        className="hidden md:flex absolute inset-x-0 bottom-24 justify-center animate-bounce"
       >
-        <span className="text-xl md:text-2xl">↓</span>
+        <span className="text-2xl">↓</span>
       </a>
     </section>
   );
